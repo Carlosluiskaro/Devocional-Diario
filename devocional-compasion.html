@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devocional: El Amor que Trasciende los Muros</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+  :root {
+    --tierra:   #6B3F2A;
+    --dorado:   #C8942A;
+    --marfil:   #FAF6EF;
+    --lino:     #EDE6D8;
+    --sombra:   #3A2112;
+    --oliva:    #6B7A4A;
+    --texto:    #2C1A0E;
+    --gris:     #8A7968;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--marfil);
+    font-family: 'Lato', sans-serif;
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* PORTADA */
+  .portada {
+    background: linear-gradient(160deg, var(--sombra) 0%, var(--tierra) 60%, #9A5A38 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 24px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portada::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.6;
+  }
+  .cruz-svg {
+    margin: 0 auto 20px;
+    opacity: 0.85;
+  }
+  .portada h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .portada .subtitulo {
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .portada .cita-portada {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    max-width: 380px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* NAVEGACIÓN DÍAS */
+  .nav-dias {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 20px 16px;
+    background: var(--lino);
+    border-bottom: 1px solid #D9CFC0;
+    scrollbar-width: none;
+  }
+  .nav-dias::-webkit-scrollbar { display: none; }
+  .btn-dia {
+    flex-shrink: 0;
+    background: white;
+    border: 1.5px solid #D9CFC0;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--gris);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-dia:hover {
+    border-color: var(--dorado);
+    color: var(--tierra);
+  }
+  .btn-dia.activo {
+    background: var(--tierra);
+    border-color: var(--tierra);
+    color: white;
+  }
+
+  /* CONTENIDO DEVOCIONAL */
+  .contenedor {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .dia-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .numero-dia {
+    background: var(--tierra);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .dia-titulo-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--sombra);
+    line-height: 1.25;
+  }
+  .dia-titulo-wrap .tema {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--oliva);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  /* CITA BÍBLICA */
+  .cita-biblica {
+    background: white;
+    border-left: 4px solid var(--dorado);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .cita-biblica .versiculo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: var(--sombra);
+    margin-bottom: 10px;
+  }
+  .cita-biblica .referencia {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--dorado);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* REFLEXIÓN */
+  .reflexion {
+    margin-bottom: 24px;
+  }
+  .reflexion h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--tierra);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reflexion h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--lino);
+  }
+  .reflexion p {
+    font-size: 0.97rem;
+    line-height: 1.8;
+    color: #4A3828;
+  }
+  .reflexion p + p { margin-top: 12px; }
+
+  /* APLICACIÓN */
+  .aplicacion {
+    background: var(--lino);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+  .aplicacion h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--oliva);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .aplicacion p {
+    font-size: 0.93rem;
+    line-height: 1.75;
+    color: #4A5030;
+  }
+
+  /* ORACIÓN */
+  .oracion {
+    background: linear-gradient(135deg, var(--tierra) 0%, var(--sombra) 100%);
+    color: white;
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-bottom: 32px;
+  }
+  .oracion h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+    margin-bottom: 12px;
+  }
+  .oracion p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.75;
+    opacity: 0.95;
+  }
+
+  /* NAVEGACIÓN INFERIOR */
+  .nav-inferior {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .nav-inferior button {
+    flex: 1;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--lino);
+    background: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--tierra);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-inferior button:hover:not(:disabled) {
+    background: var(--tierra);
+    color: white;
+    border-color: var(--tierra);
+  }
+  .nav-inferior button:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .decorador {
+    text-align: center;
+    color: var(--dorado);
+    font-size: 1.3rem;
+    margin: 16px 0;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="portada">
+  <svg class="cruz-svg" width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="18" y="0" width="8" height="52" rx="3" fill="white" opacity="0.85"/>
+    <rect x="0" y="14" width="44" height="8" rx="3" fill="white" opacity="0.85"/>
+  </svg>
+  <p class="subtitulo">Devocional · 7 días</p>
+  <h1>El Amor que<br>Trasciende los Muros</h1>
+  <div class="decorador" style="color:rgba(255,255,255,0.4); margin: 16px 0;">✦ ✦ ✦</div>
+  <p class="cita-portada">"Porque tuve hambre, y me disteis de comer; tuve sed, y me disteis de beber…"<br><strong>— Mateo 25:35</strong></p>
+</div>
+
+<div class="nav-dias" id="navDias"></div>
+
+<div class="contenedor" id="contenedorDia"></div>
+
+<script>
+const dias = [
+  {
+    num: 1,
+    tema: "Ver con los ojos de Cristo",
+    titulo: "Cuando el prójimo es el extraño",
+    versiculo: "Entonces el rey les dirá: 'De cierto os digo que en cuanto lo hicisteis a uno de estos mis hermanos más pequeños, a mí lo hicisteis.'",
+    ref: "Mateo 25:40 · RVR1960",
+    reflexion: [
+      "Jesús no habló de la compasión como un ideal lejano, sino como un reconocimiento: en el rostro del pobre, del hambriento, del extranjero, está el rostro de Dios. Esta es una de las afirmaciones más radicales del Evangelio.",
+      "Muchas veces la iglesia se convierte en un hermoso templo hacia adentro y una pared hacia afuera. Cantamos con fervor, servimos con dedicación en las bancas, pero cruzamos la calle para no ver al que está tendido en ella. Jesús invierte esa lógica: el servicio más sagrado ocurre justo allí, donde la vida duele."
+    ],
+    aplicacion: "Hoy, al salir de casa, haz el ejercicio de mirar a las personas que normalmente no ves: el vendedor ambulante, el señor que duerme en la esquina, el vecino que vive solo. Pide a Dios que te dé Sus ojos.",
+    oracion: "Señor, sana mi ceguera espiritual. Dame la gracia de ver en el necesitado Tu propio rostro, y el valor de no apartar la mirada. Amén."
+  },
+  {
+    num: 2,
+    tema: "Más allá de la banca",
+    titulo: "La fe que camina hacia afuera",
+    versiculo: "Así también la fe, si no tiene obras, es muerta en sí misma. Pero alguno dirá: Tú tienes fe, y yo tengo obras. Muéstrame tu fe sin tus obras, y yo te mostraré mi fe por mis obras.",
+    ref: "Santiago 2:17–18 · RVR1960",
+    reflexion: [
+      "Santiago no está atacando la fe; está describiendo dónde vive la fe verdadera: en las manos extendidas, en los pies que caminan hacia el dolor ajeno. Una fe que solo existe en el idioma de las ideas, pero no mueve el cuerpo, es una fe que no ha entendido el Evangelio.",
+      "No basta con ser un buen diácono, un buen cantante de alabanza, un fiel asistente. Cristo nos llama a llevar Su amor fuera de los muros del edificio. La iglesia no es un bunker donde guardar la gracia, sino una fuente de la que debe fluir hacia el mundo."
+    ],
+    aplicacion: "Identifica una necesidad concreta cerca de ti esta semana. No tiene que ser grande: una bolsa de comida, acompañar a alguien a una cita médica, escuchar a alguien que está solo. La fe se hace visible en lo pequeño.",
+    oracion: "Padre, que mi fe no sea solo palabra. Que encuentre mis pies moviéndose hacia donde Tú ya estás: en medio del que sufre. Amén."
+  },
+  {
+    num: 3,
+    tema: "Justicia y misericordia",
+    titulo: "Lo que Dios realmente pide",
+    versiculo: "Oh hombre, él te ha declarado lo que es bueno, y qué pide Jehová de ti: solamente hacer justicia, y amar misericordia, y humillarte ante tu Dios.",
+    ref: "Miqueas 6:8 · RVR1960",
+    reflexion: [
+      "El profeta Miqueas desmonta la religiosidad vacía con una sola frase. Dios no quiere más rituales: quiere justicia para el débil, misericordia para el que ha caído, y humildad en quien la practica. Es una agenda que incomoda porque no puede hacerse desde la comodidad del santuario.",
+      "Ayudar al pobre no es caridad opcional del cristiano maduro; es el corazón del pacto. Ignorar al necesitado, en la Biblia, es ignorar a Dios mismo. Nuestra espiritualidad se mide, en buena parte, por cómo tratamos a los más vulnerables de nuestra comunidad y ciudad."
+    ],
+    aplicacion: "Pregúntate honestamente: ¿hay alguien en mi entorno cuya necesidad he ignorado porque resultaba incómodo o inconveniente? Lleva esa persona ante Dios hoy en oración y pide dirección sobre cómo actuar.",
+    oracion: "Señor, que el olor de mis ofrendas no tape el clamor del pobre. Que mi amor a Ti se demuestre en justicia y misericordia. Amén."
+  },
+  {
+    num: 4,
+    tema: "El buen samaritano hoy",
+    titulo: "Cruzar la calle del prejuicio",
+    versiculo: "¿Cuál, pues, de estos tres te parece que fue el prójimo del que cayó en manos de los ladrones? Él dijo: El que usó de misericordia con él. Entonces Jesús le dijo: Ve, y haz tú lo mismo.",
+    ref: "Lucas 10:36–37 · RVR1960",
+    reflexion: [
+      "El samaritano no era el esperado. El religioso y el levita pasaron de largo; el 'otro', el extranjero, el que los judíos despreciaban, fue quien se detuvo. Jesús elige al personaje más incómodo para definir quién es el prójimo. No lo hace por accidente.",
+      "¿A quiénes pasamos de largo nosotros? Quizás no son personas de otra ciudad, sino el adicto de la esquina, el migrante que no habla bien el idioma, el que tiene una historia diferente a la nuestra. El amor de Cristo no reconoce esos muros. La pregunta de Jesús nos sigue persiguiendo: '¿Cuál de los tres fue el prójimo?'"
+    ],
+    aplicacion: "Piensa en un grupo de personas hacia el que sientes distancia, incomodidad o prejuicio. No para juzgarte, sino para llevarlo a Dios. Pídele que amplíe tu definición de 'prójimo' hoy.",
+    oracion: "Dios, rompe en mí los prejuicios que me impiden ver a Tu imagen en el que es diferente a mí. Que cruce la calle. Amén."
+  },
+  {
+    num: 5,
+    tema: "Generosidad radical",
+    titulo: "La economía del reino",
+    versiculo: "El que tiene dos túnicas, dé al que no tiene; y el que tiene qué comer, haga lo mismo.",
+    ref: "Lucas 3:11 · RVR1960",
+    reflexion: [
+      "Juan el Bautista predicó el arrepentimiento, y cuando le preguntaron qué debían hacer, respondió con algo desordenadamente práctico: compartir la ropa, compartir la comida. El reino de Dios tiene una economía diferente a la del mundo: no acumular, sino distribuir.",
+      "La generosidad cristiana no es dar de lo que sobra; es la disposición a compartir lo que tenemos, incluso cuando no es abundante. Esa es la lógica de los panes y los peces: lo poco, puesto en manos de Cristo, alimenta a multitudes. Nuestra contribución no tiene que ser enorme para ser real."
+    ],
+    aplicacion: "Haz un inventario sencillo: ¿qué tienes 'dos' de lo que alguien carece? Puede ser tiempo, dinero, ropa, comida, un contacto útil. Identifica una manera concreta de compartirlo esta semana.",
+    oracion: "Señor, que lo que tengo no lo sostenga con las manos cerradas. Dame un corazón abierto, generoso como el Tuyo. Amén."
+  },
+  {
+    num: 6,
+    tema: "Amor sin fronteras",
+    titulo: "Incluso con los que no son nuestros",
+    versiculo: "Porque si amáis a los que os aman, ¿qué recompensa tendréis? ¿No hacen también lo mismo los publicanos? Amad a vuestros enemigos, bendecid a los que os maldicen, haced bien a los que os aborrecen.",
+    ref: "Mateo 5:44,46 · RVR1960",
+    reflexion: [
+      "El amor cristiano se diferencia del amor humano natural en su alcance: llega adonde el amor natural no quiere llegar. Amar a los de casa, a los de nuestra congregación, a los de nuestra tribu, no es difícil. Jesús dice que eso también lo hacen los que no le conocen.",
+      "El verdadero testimonio del amor de Cristo ocurre cuando amamos al que no comparte nuestra fe, nuestra cultura, o nuestra historia. No borrando límites doctrinales, sino trascendiendo las barreras del corazón. El mundo no recordará nuestros sermones; recordará si nos detuvimos."
+    ],
+    aplicacion: "Piensa en alguien fuera de tu círculo cristiano —un vecino, un compañero de trabajo— a quien puedas mostrar bondad concreta esta semana. No con agenda de 'conquistarlo', sino con amor genuino.",
+    oracion: "Padre, que el amor que muestro no sea solo para los míos. Que Tu gracia en mí alcance también a los que aún no Te conocen. Amén."
+  },
+  {
+    num: 7,
+    tema: "Una iglesia que sale",
+    titulo: "Sal y luz en el mundo real",
+    versiculo: "Vosotros sois la sal de la tierra… Vosotros sois la luz del mundo… Así alumbre vuestra luz delante de los hombres, para que vean vuestras buenas obras, y glorifiquen a vuestro Padre que está en los cielos.",
+    ref: "Mateo 5:13–14,16 · RVR1960",
+    reflexion: [
+      "La sal no sirve guardada en el salero. La luz no ilumina debajo de la cama. Jesús llama a Su iglesia a existir en el mundo, no apartada de él. Nuestra presencia en la comunidad, en el barrio, en los espacios de necesidad, es en sí misma un testimonio del reino.",
+      "Este devocional termina donde debe terminar: en una pregunta de acción. ¿Qué tipo de iglesia somos? ¿Una que cuida bien sus rituales adentro, o una que se derrama hacia afuera en amor práctico? Ambas cosas no son opuestas, pero sin la segunda, la primera pierde su sabor."
+    ],
+    aplicacion: "Como compromiso de cierre: decide una práctica sostenida de amor hacia afuera. Puede ser visitar un hogar de ancianos una vez al mes, apoyar a una familia vulnerable en tu barrio, o simplemente ser el vecino que saluda y pregunta cómo está. Que sea algo que puedas mantener.",
+    oracion: "Señor, que Tu iglesia —que somos nosotros— sea sal que preserve y luz que guíe. Que nuestras vidas sean el sermón que el mundo necesita ver. Amén."
+  }
+];
+
+let diaActual = 0;
+
+function renderNavDias() {
+  const nav = document.getElementById('navDias');
+  nav.innerHTML = dias.map((d, i) => `
+    <button class="btn-dia ${i === diaActual ? 'activo' : ''}" onclick="irADia(${i})">
+      Día ${d.num}
+    </button>
+  `).join('');
+}
+
+function renderDia() {
+  const d = dias[diaActual];
+  const contenedor = document.getElementById('contenedorDia');
+  contenedor.innerHTML = `
+    <div class="dia-header">
+      <div class="numero-dia">${d.num}</div>
+      <div class="dia-titulo-wrap">
+        <div class="tema">${d.tema}</div>
+        <h2>${d.titulo}</h2>
+      </div>
+    </div>
+
+    <div class="cita-biblica">
+      <p class="versiculo">"${d.versiculo}"</p>
+      <p class="referencia">${d.ref}</p>
+    </div>
+
+    <div class="reflexion">
+      <h3>Reflexión</h3>
+      ${d.reflexion.map(p => `<p>${p}</p>`).join('')}
+    </div>
+
+    <div class="aplicacion">
+      <h3>Para hoy</h3>
+      <p>${d.aplicacion}</p>
+    </div>
+
+    <div class="oracion">
+      <h3>Oración</h3>
+      <p>${d.oracion}</p>
+    </div>
+
+    <div class="nav-inferior">
+      <button onclick="irADia(${diaActual - 1})" ${diaActual === 0 ? 'disabled' : ''}>
+        ← Día anterior
+      </button>
+      <button onclick="irADia(${diaActual + 1})" ${diaActual === dias.length - 1 ? 'disabled' : ''}>
+        Día siguiente →
+      </button>
+    </div>
+  `;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function irADia(i) {
+  if (i < 0 || i >= dias.length) return;
+  diaActual = i;
+  renderNavDias();
+  renderDia();
+}
+
+renderNavDias();
+renderDia();
+</script>
+</body>
+</html>
